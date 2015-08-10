@@ -36,13 +36,14 @@ else
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O ~/.git-prompt.sh
 fi
 
+if [ -d ~/.vim/autoload ] && [ -d ~/.vim/bundle ]; then 
+printf "It looks like syntastic might already be installed."
+else
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-
 curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-
 cd ~/.vim/bundle && \
 git clone https://github.com/scrooloose/syntastic.git  
-
+fi
 printf "Perform an update, an upgrade, and install python-virtualenv?"
 
 asksure() {
@@ -71,6 +72,7 @@ if [[ $UID -eq 0 ]]; then
     printf "Don't forget to upgrade and update later, then!"
   fi
 else
+  printf
   printf "Update and upgrade skipped because you do not have superuser priveliges. Virtualenv not installed."
 fi
 
