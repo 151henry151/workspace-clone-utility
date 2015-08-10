@@ -6,7 +6,7 @@ fi
 
 chooseremote() {
 printf "Clone from (R)emote or (G)ithub?"
-while read -r -n 1 -s answer; do:
+while read -r -n 1 -s answer; do
   if [[ $answer = [RrGg] ]]; then
     [[ $answer = [Rr] ]] && retval=0
     [[ $answer = [Gg] ]] && retval=1
@@ -14,9 +14,14 @@ while read -r -n 1 -s answer; do:
   fi
 done
 
+printf
+
+return $retval
+}
+
 if chooseremote; then
   printf "This option is for remotely cloning the configuration of any machine which is online and is capable of connecting with scp."
-
+  printf
   printf "Which ip address would you like to clone from? IP:"
   read ipaddress
 
@@ -26,9 +31,9 @@ if chooseremote; then
   scp .git-prompt.sh .bashrc .vimrc "$user"@"$ipaddress":~/
 else
   printf "Cloning configuration from github"
-  wget https://github.com/151henry151/workspace-clone-utility/blob/master/.bashrc -O ~/.bashrc
-  wget https://github.com/151henry151/workspace-clone-utility/blob/master/.vimrc -O ~/.vimrc
-  wget https://github.com/151henry151/workspace-clone-utility/blob/master/.git-prompt.sh -O ~/.git-prompt.sh
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O ~/.bashrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O ~/.vimrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O ~/.git-prompt.sh
 fi
 
 mkdir -p ~/.vim/autoload ~/.vim/bundle && \
