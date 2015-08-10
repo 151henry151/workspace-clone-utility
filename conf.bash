@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 printf "This script is for remotely cloning the configuration of any machine which is online and is capable of connecting with scp."
 
-if [[ $UID -ne 0 ]];
+if [[ $UID -ne 0 ]]; then
   printf "This script must be executed with root privileges. If you are not root, execute this script with the command sudo ./conf.bash instead of just ./conf.bash."
 fi
 
