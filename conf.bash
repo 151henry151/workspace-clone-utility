@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "This script is for remotely cloning the configuration of any machine which is online and is capable of connecting with scp."
+echo "This script is for remotely cloning the configuration of any machine which is online and is capable of connecting with scp. This script must be executed with root privileges. If you are not root, execute this script with the command sudo ./conf.bash instead of just ./conf.bash."
 
 echo -n "Which ip address would you like to clone from? IP:"
 read ipaddress
