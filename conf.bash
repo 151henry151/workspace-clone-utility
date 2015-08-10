@@ -31,7 +31,7 @@ return $retval
 }
 
 
-if [[ $UID -eq 0 ]];
+if [[ $UID -eq 0 ]]; then
   if asksure; then
     apt-get update
     apt-get upgrade
@@ -42,4 +42,5 @@ if [[ $UID -eq 0 ]];
   fi
 else
   printf "Update and upgrade skipped because you do not have superuser priveliges. Virtualenv not installed."
+fi
 
