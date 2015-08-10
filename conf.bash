@@ -1,18 +1,22 @@
 #!/usr/bin/env bash
-echo "This script is for remotely cloning the configuration of any machine which is online and is capable of connecting with scp. This script must be executed with root privileges. If you are not root, execute this script with the command sudo ./conf.bash instead of just ./conf.bash."
+printf "This script is for remotely cloning the configuration of any machine which is online and is capable of connecting with scp."
 
-echo -n "Which ip address would you like to clone from? IP:"
+if [[ $UID -ne 0 ]];
+  printf "This script must be executed with root privileges. If you are not root, execute this script with the command sudo ./conf.bash instead of just ./conf.bash."
+fi
+
+printf "Which ip address would you like to clone from? IP:"
 read ipaddress
 
-echo -n "Which user on $ipaddress would you like to clone? User:"
+printf "Which user on %s would you like to clone? User:" "$ipaddress"
 read user
 
-scp .git-prompt.sh .bashrc .vimrc $user@$ipaddress:~/
+scp .git-prompt.sh .bashrc .vimrc "$user"@"$ipaddress":~/
 
-echo "Recommend performing an update, an upgrade, and installing python-virtualenv. Do so automatically?"
+printf "Perform an update, an upgrade, and install python-virtualenv?"
 
 asksure() {
-echo -n "(Y/N)"
+printf "(Y/N)"
 while read -r -n 1 -s answer; do
   if [[ $answer = [YyNn] ]]; then
     [[ $answer = [Yy] ]] && retval=0
@@ -21,16 +25,21 @@ while read -r -n 1 -s answer; do
   fi
 done
 
-echo
+printf
 
 return $retval
 }
 
-if asksure; then
-  apt-get update
-  apt-get upgrade
-  apt-get install python-virtualenv
 
+if [[ $UID -eq 0 ]];
+  if asksure; then
+    apt-get update
+    apt-get upgrade
+    apt-get install python-virtualenv
+
+  else
+    printf "Don't forget to upgrade and update later, then!"
+  fi
 else
-  echo "Don't forget to upgrade and update later, then! And if you're going to work with python, you really ought to install virtualenv!"
-fi
+  printf "Update and upgrade skipped because you do not have superuser priveliges. Virtualenv not installed."
+
