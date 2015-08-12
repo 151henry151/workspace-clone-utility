@@ -14,14 +14,14 @@ while read -r -n 1 -s answer; do
   fi
 done
 
-printf
+echo
 
 return $retval
 }
 
 if chooseremote; then
   printf "This option is for remotely cloning the configuration of any machine which is online and is capable of connecting with scp."
-  printf
+  echo
   printf "Which ip address would you like to clone from? IP:"
   read ipaddress
 
@@ -56,7 +56,7 @@ while read -r -n 1 -s answer; do
   fi
 done
 
-printf
+echo
 
 return $retval
 }
@@ -72,7 +72,7 @@ if [[ $UID -eq 0 ]]; then
     printf "Don't forget to upgrade and update later, then!"
   fi
 else
-  printf
+  echo
   printf "Update and upgrade skipped because you do not have superuser priveliges. Virtualenv not installed."
 fi
 
