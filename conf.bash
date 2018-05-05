@@ -31,9 +31,13 @@ if chooseremote; then
   scp .git-prompt.sh .bashrc .vimrc "$user"@"$ipaddress":~/
 else
   printf "Cloning configuration from github"
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O ~/.bashrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O ~/.vimrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O ~/.git-prompt.sh
+  printf "Which user on your local machine would you like to setup? User:"
+  read user
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc -O /root/.bashrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O /home/$user/.bashrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /home/$user/.vimrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /root/.vimrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O /home/$user/.git-prompt.sh
 fi
 
 if [ -d ~/.vim/autoload ] && [ -d ~/.vim/bundle ]; then 
