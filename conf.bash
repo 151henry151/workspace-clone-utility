@@ -49,6 +49,29 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 cd ~/.vim/bundle && \
 git clone https://github.com/scrooloose/syntastic.git  
 fi
+
+
+printf "Install gekko and set up a gekko environment?"
+
+asksure2() {
+printf "(Y/N)"
+while read -r -n 1 -s answer; do
+  if [[ $answer = [YyNn] ]]; then
+    [[ $answer = [Yy] ]] && retval=0
+    [[ $answer = [Nn] ]] && retval=1
+    break
+  fi
+done
+
+echo
+
+return $retval
+}
+
+if asksure2; then
+  ./gekko-install.bash
+fi
+
 printf "Perform an update and an upgrade?"
 
 asksure() {
