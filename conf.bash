@@ -31,7 +31,8 @@ if chooseremote; then
   scp .git-prompt.sh .bashrc .vimrc "$user"@"$ipaddress":~/
 else
   printf "Cloning configuration from github"
-  printf "Which user on your local machine would you like to setup? User:"
+  echo
+  printf "Which local user would you like to setup? User:"
   read user
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc -O /root/.bashrc
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O /home/$user/.bashrc
@@ -48,7 +49,7 @@ curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 cd ~/.vim/bundle && \
 git clone https://github.com/scrooloose/syntastic.git  
 fi
-printf "Perform an update, an upgrade, and install python-virtualenv?"
+printf "Perform an update and an upgrade?"
 
 asksure() {
 printf "(Y/N)"
@@ -68,15 +69,13 @@ return $retval
 
 if [[ $UID -eq 0 ]]; then
   if asksure; then
-    apt-get update
-    apt-get upgrade
-    apt-get install python-virtualenv
+    apt-get update -y && apt-get upgrade -y
 
   else
     printf "Don't forget to upgrade and update later, then!"
   fi
 else
   echo
-  printf "Update and upgrade skipped because you do not have superuser priveliges. Virtualenv not installed."
+  printf "Update and upgrade skipped because you do not have superuser priveliges."
 fi
 
