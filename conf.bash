@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 if [[ $UID -ne 0 ]]; then
-  printf "This script must be executed with root privileges. If you are not root, execute this script with the command sudo ./conf.bash instead of just ./conf.bash."
+  printf "This script must be executed with root privileges. Use sudo ./conf.bash or su -c './conf.bash'."
+  echo
+  exit
 fi
 
 chooseremote() {
@@ -27,8 +29,11 @@ if chooseremote; then
 
   printf "Which user on %s would you like to clone? User:" "$ipaddress"
   read user
+  
+  printf "Which local user would you like to create? User:"
+  read localuser
 
-  scp .git-prompt.sh .bashrc .vimrc "$user"@"$ipaddress":~/
+  scp .git-prompt.sh .bashrc lvimrc "$user"@"$ipaddress":$localuser
 else
   printf "Cloning configuration from github"
   echo
@@ -41,38 +46,15 @@ else
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O /home/$user/.git-prompt.sh
 fi
 
-if [ -d ~/.vim/autoload ] && [ -d ~/.vim/bundle ]; then 
+if [ -d /home/$user/.vim/autoload ] && [ -d /home/$user/.vim/bundle ]; then 
 printf "It looks like syntastic might already be installed."
 else
-mkdir -p ~/.vim/autoload ~/.vim/bundle && \
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-cd ~/.vim/bundle && \
-git clone https://github.com/scrooloose/syntastic.git  
+mkdir -p /home/$user/.vim/autoload /home/$user/.vim/bundle && \
+curl -LSso /home/$user/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+cd /home/$user/.vim/bundle && \
+git clone https://github.com/vim-syntastic/syntastic.git  
 fi
 
-
-printf "Install gekko and set up a gekko environment?"
-
-asksure2() {
-printf "(Y/N)"
-while read -r -n 1 -s answer; do
-  if [[ $answer = [YyNn] ]]; then
-    [[ $answer = [Yy] ]] && retval=0
-    [[ $answer = [Nn] ]] && retval=1
-    break
-  fi
-done
-
-echo
-
-return $retval
-}
-
-if asksure2; then
-  ./gekko-install.bash
-fi
-
-printf "Perform an update and an upgrade?"
 
 asksure() {
 printf "(Y/N)"
@@ -89,16 +71,20 @@ echo
 return $retval
 }
 
+printf "Install gekko and set up a gekko environment?"
+echo
+if asksure; then
+  ./gekko-install.bash
+fi
 
-if [[ $UID -eq 0 ]]; then
-  if asksure; then
-    apt-get update -y && apt-get upgrade -y
 
-  else
-    printf "Don't forget to upgrade and update later, then!"
-  fi
+echo
+printf "Update and upgrade?"
+echo
+if asksure; then
+  apt-get update -y && apt-get upgrade -y
+
 else
-  echo
-  printf "Update and upgrade skipped because you do not have superuser priveliges."
+  printf "Don't forget to upgrade and update later, then!"
 fi
 
