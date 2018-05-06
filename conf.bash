@@ -48,6 +48,7 @@ fi
 
 if [ -d /home/$user/.vim/autoload ] && [ -d /home/$user/.vim/bundle ]; then 
 printf "It looks like syntastic might already be installed."
+echo
 else
 mkdir -p /home/$user/.vim/autoload /home/$user/.vim/bundle && \
 curl -LSso /home/$user/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
@@ -77,10 +78,39 @@ if asksure; then
   ./gekko-install.bash
 fi
 
+echo
+printf "Install locate?"
+echo
+if asksure; then
+  apt install locate -y
+  updatedb
+fi
+
+echo
+printf "Install tmux?"
+echo
+if asksure; then
+  apt install tmux -y
+fi
+
+echo
+printf "Install sudo?"
+echo
+if asksure; then
+  apt install sudo -y
+fi
+
+echo
+printf "Install python?"
+echo
+if asksure; then
+  apt install python -y
+fi
 
 echo
 printf "Update and upgrade?"
 echo
+
 if asksure; then
   apt-get update -y && apt-get upgrade -y
 
