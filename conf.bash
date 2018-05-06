@@ -98,6 +98,7 @@ printf "Install sudo?"
 echo
 if asksure; then
   apt install sudo -y
+  adduser $user sudo
 fi
 
 echo
