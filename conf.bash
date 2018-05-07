@@ -72,7 +72,7 @@ if [ -d "/home/"$localuser"/.vim/autoload"  ] && [ -d "/home/"$localuser"/.vim/b
 printf "It looks like syntastic might already be installed."
 echo
 else
-mkdir -p "/home/"$localuser"/.vim/autoload /home/"$localuser"/.vim/bundle" && \
+mkdir -p "/home/"$localuser"/.vim/autoload" "/home/"$localuser"/.vim/bundle" && \
 curl -LSso "/home/"$localuser"/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
 cd "/home/"$localuser"/.vim/bundle" && \
 git clone https://github.com/vim-syntastic/syntastic.git  
