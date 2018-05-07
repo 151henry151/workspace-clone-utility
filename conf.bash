@@ -60,7 +60,7 @@ else
   printf "Cloning configuration from github"
   echo
   printf "Which local user would you like to setup? User:"
-  read user
+  read localuser
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc -O /root/.bashrc
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O /home/$localuser/.bashrc
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /home/$localuser/.vimrc
