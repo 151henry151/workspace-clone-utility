@@ -63,18 +63,18 @@ else
   read localuser
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc" -O "/root/.bashrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc" -O "/home/"$localuser"/.bashrc"
-  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc "-O "/home/%s/.vimrc" "$localuser"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc "-O "/home/"$localuser"/.vimrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc" -O "/root/.vimrc"
-  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/%s/.git-prompt.sh" "$localuser"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/"$localuesr"/.git-prompt.sh" 
 fi
 
-if [ -d "/home/%s/.vim/autoload" "$localuser" ] && [ -d "/home/%s/.vim/bundle" "$localuser" ]; then 
+if [ -d "/home/"$localuser"/.vim/autoload"  ] && [ -d "/home/"$localuser"/.vim/bundle"  ]; then 
 printf "It looks like syntastic might already be installed."
 echo
 else
-mkdir -p /home/$localuser/.vim/autoload /home/$user/.vim/bundle && \
-curl -LSso /home/$localuser/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-cd /home/$localuser/.vim/bundle && \
+mkdir -p "/home/"$localuser"/.vim/autoload /home/"$localuser"/.vim/bundle" && \
+curl -LSso "/home/"$localuser"/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
+cd "/home/"$localuser"/.vim/bundle" && \
 git clone https://github.com/vim-syntastic/syntastic.git  
 fi
 
@@ -82,9 +82,9 @@ fi
 printf "Install gekko and set up a gekko environment?"
 echo
 if asksure; then
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/gekko-install.bash /$localuser/gekko-install.bash
-  chmod u+x /$localuser/gekko-install.bash
-  ./$localuser/gekko-install.bash
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/gekko-install.bash "/home/"$localuser"/gekko-install.bash"
+  chmod u+x "/home/"$localuser"/gekko-install.bash"
+  "./"$localuser"/gekko-install.bash"
 fi
 
 echo
