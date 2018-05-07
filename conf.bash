@@ -63,9 +63,9 @@ else
   read localuser
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc" -O "/root/.bashrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc" -O "/home/"$localuser"/.bashrc"
-  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc "-O "/home/"$localuser"/.vimrc"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc" -O "/home/"$localuser"/.vimrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc" -O "/root/.vimrc"
-  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/"$localuesr"/.git-prompt.sh" 
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/"$localuser"/.git-prompt.sh" 
 fi
 
 if [ -d "/home/"$localuser"/.vim/autoload"  ] && [ -d "/home/"$localuser"/.vim/bundle"  ]; then 
@@ -84,7 +84,7 @@ echo
 if asksure; then
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/gekko-install.bash "/home/"$localuser"/gekko-install.bash"
   chmod u+x "/home/"$localuser"/gekko-install.bash"
-  "./"$localuser"/gekko-install.bash"
+  "./home/"$localuser"/gekko-install.bash"
 fi
 
 echo
