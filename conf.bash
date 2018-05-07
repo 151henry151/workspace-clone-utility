@@ -1,33 +1,35 @@
 #!/usr/bin/env bash
 
-# check if -y flag is given
-if [[ $1 = -y ]]; then yestoall=1; shift; fi
-
 # check if root
 if [[ $UID -ne 0 ]]; then
   printf "This script must be executed with root privileges. Use sudo ./conf.bash or su -c './conf.bash' ."
   echo
   exit
 fi
+
 echo
 
-# to be upgraded 
+yestoall=false
+[[ $1 == -y ]] && yestoall=true
+
 asksure() {
-if (( yestoall )); then
-retval=0
-else
-printf "(Y/N)"
-while read -r -n 1 -s answer; do
-  if [[ $answer = [YyNn] ]]; then
-    [[ $answer = [Yy] ]] && retval=0
-    [[ $answer = [Nn] ]] && retval=1
-    break
-  fi
-done
-fi
-echo
+  [[ $yestoall == true ]] && return 0
+  printf "(Y/N) "
 
-return $retval
+  while read -rsn 1 answer; do
+    case $answer in
+    [yY])
+      echo
+      return 0
+      ;;
+    [nN])
+      echo
+      return 1
+      ;;
+    esac
+  done
+
+  return 1
 }
 
 printf "Install git?"
@@ -35,6 +37,13 @@ echo
 if asksure; then
   apt install git -y
 fi
+
+echo
+printf "Install multitail?"
+if asksure; then
+  apt install multitail -y
+fi
+echo
 
 chooseremote() {
 if (( yestoall )); then
