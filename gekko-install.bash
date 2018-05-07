@@ -1,31 +1,25 @@
 #!/usr/bin/env bash
 
-
-printf "This script installs gekko, related tools, and dependencies. It does require sudo and apt. This script was built for Debian 9."
-sudo apt-get install -y tmux
-sudo apt-get install -y curl
-sudo apt-get install -y g++
-sudo apt-get install -y gcc
-sudo apt-get install -y git
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo apt-get install -y build-essential
-cd ~/
+apt install curl g++ gcc git nodejs build-essential -y
+cd /$localuser/
 git clone https://github.com/askmike/gekko.git
-cd ~/gekko
+cd /$localuser/gekko
 npm install --only=production
-npm install talib
-npm install tulip
-npm install tulind
+npm install talib tulip tulind
 git clone https://github.com/gekkowarez/gekkoga.git
 cd gekkoga
 npm install
-cd ~/gekko
+cd /$localuser/gekko
 git clone https://github.com/tommiehansen/gekko_tools.git
-cp ~/gekko/gekko_tools/strategies/*.js ~/gekko/strategies/
-cp ~/gekko/gekko_tools/strategies/*.toml ~/gekko/config/strategies/
+cp /$localuser/gekko/gekko_tools/strategies/*.js /$localuser/gekko/strategies/
+cp /$localuser/gekko/gekko_tools/strategies/*.toml /$localuser/gekko/config/strategies/
 git clone https://github.com/Gab0/gekko-extra-indicators.git
-cd ~/gekko/gekko-extra-indicators/indicators
-cp *.js ~/gekko/strategies/indicators
-cd ~/gekko
+cd /$localuser/gekko/gekko-extra-indicators/indicators
+cp *.js /$localuser/gekko/strategies/indicators
+cd /$localuser/gekko
+sed -i 's/127.0.0.1/0.0.0.0/g' /$localuser/gekko/web/vue/UIconfig.js
+sed -i 's/localhost/'${ipaddress}'/g' /$localuser/gekko/web/vue/UIconfig.js
 
+printf "Which strategy would you like to run on %s? Strategy filename:" "$ipaddress"
+read stratfilename
