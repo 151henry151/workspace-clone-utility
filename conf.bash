@@ -62,7 +62,7 @@ else
   printf "Which local user would you like to setup? User:"
   read localuser
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc" -O "/root/.bashrc"
-  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc" -O "/home/%s/.bashrc" "$localuser"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc" -O "/home/"$localuser"/.bashrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc "-O "/home/%s/.vimrc" "$localuser"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc" -O "/root/.vimrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/%s/.git-prompt.sh" "$localuser"
