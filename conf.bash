@@ -82,7 +82,7 @@ fi
 printf "Install gekko and set up a gekko environment?"
 echo
 if asksure; then
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/gekko-install.bash "/home/"$localuser"/gekko-install.bash"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/gekko-install.bash" -O "/home/"$localuser"/gekko-install.bash"
   chmod u+x "/home/"$localuser"/gekko-install.bash"
   "./home/"$localuser"/gekko-install.bash"
 fi
