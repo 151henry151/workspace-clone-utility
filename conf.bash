@@ -1,9 +1,31 @@
 #!/usr/bin/env bash
 
 if [[ $UID -ne 0 ]]; then
-  printf "This script must be executed with root privileges. Use sudo ./conf.bash or su -c './conf.bash'."
+  printf "This script must be executed with root privileges. Use sudo ./conf.bash or su -c './conf.bash' ."
   echo
   exit
+fi
+echo
+
+asksure() {
+printf "(Y/N)"
+while read -r -n 1 -s answer; do
+  if [[ $answer = [YyNn] ]]; then
+    [[ $answer = [Yy] ]] && retval=0
+    [[ $answer = [Nn] ]] && retval=1
+    break
+  fi
+done
+
+echo
+
+return $retval
+}
+
+printf "Install git?"
+echo
+if asksure; then
+  apt install git -y
 fi
 
 chooseremote() {
@@ -40,37 +62,22 @@ else
   printf "Which local user would you like to setup? User:"
   read user
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc -O /root/.bashrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O /home/$user/.bashrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /home/$user/.vimrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O /home/$localuser/.bashrc
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /home/$localuser/.vimrc
   wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /root/.vimrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O /home/$user/.git-prompt.sh
+  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O /home/$localuser/.git-prompt.sh
 fi
 
-if [ -d /home/$user/.vim/autoload ] && [ -d /home/$user/.vim/bundle ]; then 
+if [ -d /home/$localuser/.vim/autoload ] && [ -d /home/$localuser/.vim/bundle ]; then 
 printf "It looks like syntastic might already be installed."
 echo
 else
-mkdir -p /home/$user/.vim/autoload /home/$user/.vim/bundle && \
-curl -LSso /home/$user/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
-cd /home/$user/.vim/bundle && \
+mkdir -p /home/$localuser/.vim/autoload /home/$user/.vim/bundle && \
+curl -LSso /home/$localuser/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+cd /home/$localuser/.vim/bundle && \
 git clone https://github.com/vim-syntastic/syntastic.git  
 fi
 
-
-asksure() {
-printf "(Y/N)"
-while read -r -n 1 -s answer; do
-  if [[ $answer = [YyNn] ]]; then
-    [[ $answer = [Yy] ]] && retval=0
-    [[ $answer = [Nn] ]] && retval=1
-    break
-  fi
-done
-
-echo
-
-return $retval
-}
 
 printf "Install gekko and set up a gekko environment?"
 echo
