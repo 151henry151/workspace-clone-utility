@@ -61,14 +61,14 @@ else
   echo
   printf "Which local user would you like to setup? User:"
   read localuser
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc -O /root/.bashrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc -O /home/$localuser/.bashrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /home/$localuser/.vimrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc -O /root/.vimrc
-  wget https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh -O /home/$localuser/.git-prompt.sh
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc" -O "/root/.bashrc"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc" -O "/home/%s/.bashrc" "$localuser"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc "-O "/home/%s/.vimrc" "$localuser"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc" -O "/root/.vimrc"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/%s/.git-prompt.sh" "$localuser"
 fi
 
-if [ -d /home/$localuser/.vim/autoload ] && [ -d /home/$localuser/.vim/bundle ]; then 
+if [ -d "/home/%s/.vim/autoload" "$localuser" ] && [ -d "/home/%s/.vim/bundle" "$localuser" ]; then 
 printf "It looks like syntastic might already be installed."
 echo
 else
