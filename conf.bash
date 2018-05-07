@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# check if -y flag is given
+if [[ $1 = -y ]]; then yestoall=1; shift; fi
+
+# check if root
 if [[ $UID -ne 0 ]]; then
   printf "This script must be executed with root privileges. Use sudo ./conf.bash or su -c './conf.bash' ."
   echo
@@ -7,7 +11,11 @@ if [[ $UID -ne 0 ]]; then
 fi
 echo
 
+# to be upgraded 
 asksure() {
+if (( yestoall )); then
+retval=0
+else
 printf "(Y/N)"
 while read -r -n 1 -s answer; do
   if [[ $answer = [YyNn] ]]; then
@@ -16,7 +24,7 @@ while read -r -n 1 -s answer; do
     break
   fi
 done
-
+fi
 echo
 
 return $retval
@@ -29,6 +37,9 @@ if asksure; then
 fi
 
 chooseremote() {
+if (( yestoall )); then
+retval=1
+else
 printf "Clone from (R)emote or (G)ithub?"
 while read -r -n 1 -s answer; do
   if [[ $answer = [RrGg] ]]; then
@@ -37,7 +48,7 @@ while read -r -n 1 -s answer; do
     break
   fi
 done
-
+fi
 echo
 
 return $retval
