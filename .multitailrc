@@ -1,0 +1,13 @@
+colorscheme:gekko_log
+cs_re:yellow:Requested
+cs_re:green:Processing
+cs_re:yellow:DEBUG
+cs_re:green:BUY
+cs_re:green:BUYING
+cs_re:red:SELL
+cs_re:red:SELLING
+cs_re:yellow:short
+cs_re:cyan:long
+cs_re:green:INFO
+cs_re:magenta:BTC
+cs_re:magenta:USDT
