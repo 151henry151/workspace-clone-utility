@@ -117,6 +117,9 @@ cd
 printf "Install gekko and set up a gekko environment?"
 echo
 if asksure; then
+printf "What is the IP address of the machine gekko will run on?"
+read ipaddress
+echo
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 apt install curl g++ gcc git nodejs build-essential -y
 cd "/home/"$localuser
@@ -140,6 +143,7 @@ sed -i 's/localhost/'${ipaddress}'/g' "/home/"$localuser"/gekko/web/vue/UIconfig
 echo
 printf "Gekko and GekkoGA installed and ready for use. Edit /gekko/web/vue/UIconfig to set headless mode if desired."
 echo
+chown -R $localuser:$localuser "/home/"$localuser"/gekko"
 fi
 
 echo
