@@ -32,19 +32,6 @@ asksure() {
   return 1
 }
 
-printf "Install git?"
-echo
-if asksure; then
-  apt install git -y
-fi
-
-echo
-printf "Install multitail?"
-if asksure; then
-  apt install multitail -y
-fi
-echo
-
 chooseremote() {
 if (( yestoall )); then
 retval=1
@@ -111,6 +98,22 @@ curl -LSso "/root/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
 cd "/root/.vim/bundle" && \
 git clone https://github.com/vim-syntastic/syntastic.git  
 fi
+printf "Install git?"
+echo
+if asksure; then
+  apt install git -y
+fi
+
+echo
+printf "Install multitail?"
+if asksure; then
+  apt install multitail -y
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.multitailrc" -O "/home/"$localuser"/.multitailrc"
+fi
+echo
+
+
+
 cd
 
 
