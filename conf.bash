@@ -140,8 +140,9 @@ cp "*.js /"$localuser"/gekko/strategies/indicators"
 cd "/home/"$localuser"/gekko"
 sed -i 's/127.0.0.1/0.0.0.0/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
 sed -i 's/localhost/'${ipaddress}'/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
+sed -i 's/headless:\ false/headless:\ true/g' "/home"$localuser"/gekko/web/vue/UIconfig.js"
 echo
-printf "Gekko and GekkoGA installed and ready for use. Edit /gekko/web/vue/UIconfig to set headless mode if desired."
+printf "Gekko and GekkoGA installed and ready for use. Navigate to %s:3000 in your web browser for the UI." $ipaddress
 echo
 chown -R $localuser:$localuser "/home/"$localuser"/gekko"
 fi
