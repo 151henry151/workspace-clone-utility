@@ -92,11 +92,26 @@ if [ -d "/home/"$localuser"/.vim/autoload"  ] && [ -d "/home/"$localuser"/.vim/b
 printf "It looks like syntastic might already be installed."
 echo
 else
+echo
+printf "Installing syntastic and pathogen for user %s" $localuser
 mkdir -p "/home/"$localuser"/.vim/autoload" "/home/"$localuser"/.vim/bundle" && \
 curl -LSso "/home/"$localuser"/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
 cd "/home/"$localuser"/.vim/bundle" && \
 git clone https://github.com/vim-syntastic/syntastic.git  
 fi
+echo
+if [ -d "/root/.vim/autoload"  ] && [ -d "/root/.vim/bundle"  ]; then 
+printf "It looks like syntastic is already installed for root as well"
+echo
+else
+echo
+printf "Installing syntastic and pathogen for root user"
+mkdir -p "/root/.vim/autoload" "/root/.vim/bundle" && \
+curl -LSso "/root/.vim/autoload/pathogen.vim" https://tpo.pe/pathogen.vim
+cd "/root/.vim/bundle" && \
+git clone https://github.com/vim-syntastic/syntastic.git  
+fi
+cd
 
 
 printf "Install gekko and set up a gekko environment?"
@@ -104,24 +119,24 @@ echo
 if asksure; then
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 apt install curl g++ gcc git nodejs build-essential -y
-cd /$localuser/
+cd "/home/"$localuser
 git clone https://github.com/askmike/gekko.git
-cd /$localuser/gekko
+cd "/home/"$localuser"/gekko"
 npm install --only=production
 npm install talib tulip tulind
 git clone https://github.com/gekkowarez/gekkoga.git
 cd gekkoga
 npm install
-cd /$localuser/gekko
+cd "/home/"$localuser"/gekko"
 git clone https://github.com/tommiehansen/gekko_tools.git
-cp /$localuser/gekko/gekko_tools/strategies/*.js /$localuser/gekko/strategies/
-cp /$localuser/gekko/gekko_tools/strategies/*.toml /$localuser/gekko/config/strategies/
+cp "/home/"$localuser"/gekko/gekko_tools/strategies/*.js" "/home/"$localuser"/gekko/strategies/"
+cp "/home/"$localuser"gekko/gekko_tools/strategies/*.toml" "/home/"$localuser"/gekko/config/strategies/"
 git clone https://github.com/Gab0/gekko-extra-indicators.git
-cd /$localuser/gekko/gekko-extra-indicators/indicators
-cp *.js /$localuser/gekko/strategies/indicators
-cd /$localuser/gekko
-sed -i 's/127.0.0.1/0.0.0.0/g' /$localuser/gekko/web/vue/UIconfig.js
-sed -i 's/localhost/'${ipaddress}'/g' /$localuser/gekko/web/vue/UIconfig.js
+cd "/home/"$localuser"/gekko/gekko-extra-indicators/indicators"
+cp "*.js /"$localuser"/gekko/strategies/indicators"
+cd /home/"$localuser"gekko
+sed -i 's/127.0.0.1/0.0.0.0/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
+sed -i 's/localhost/'${ipaddress}'/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
 echo
 printf "Gekko and GekkoGA installed and ready for use. Edit /gekko/web/vue/UIconfig to set headless mode if desired."
 echo
