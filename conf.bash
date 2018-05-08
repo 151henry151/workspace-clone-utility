@@ -129,12 +129,12 @@ cd gekkoga
 npm install
 cd "/home/"$localuser"/gekko"
 git clone https://github.com/tommiehansen/gekko_tools.git
-cp "/home/"$localuser"/gekko/gekko_tools/strategies/*.js" "/home/"$localuser"/gekko/strategies/"
-cp "/home/"$localuser"gekko/gekko_tools/strategies/*.toml" "/home/"$localuser"/gekko/config/strategies/"
+cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/*.js" "/home/"$localuser"/gekko/strategies/"
+cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/*.toml" "/home/"$localuser"/gekko/config/strategies/"
 git clone https://github.com/Gab0/gekko-extra-indicators.git
 cd "/home/"$localuser"/gekko/gekko-extra-indicators/indicators"
 cp "*.js /"$localuser"/gekko/strategies/indicators"
-cd /home/"$localuser"gekko
+cd "/home/"$localuser"/gekko"
 sed -i 's/127.0.0.1/0.0.0.0/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
 sed -i 's/localhost/'${ipaddress}'/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
 echo
