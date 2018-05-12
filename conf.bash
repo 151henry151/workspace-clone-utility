@@ -71,8 +71,12 @@ else
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.rootbashrc" -O "/root/.bashrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.bashrc" -O "/home/"$localuser"/.bashrc"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc" -O "/home/"$localuser"/.vimrc"
+  chown $localuser:$localuser "/home/"$localuser"/.vimrc"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/root/.git-prompt.sh"
   wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.vimrc" -O "/root/.vimrc"
-  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/"$localuser"/.git-prompt.sh" 
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/"$localuser"/.git-prompt.sh"
+  wget "https://raw.githubusercontent.com/151henry151/workspace-clone-utility/master/.git-prompt.sh" -O "/home/"$localuser"/.git-prompt.sh"
+  chown $localuser:$localuser "/home/"$localuser"/git-prompt.sh" 
 fi
 
 if [ -d "/home/"$localuser"/.vim/autoload"  ] && [ -d "/home/"$localuser"/.vim/bundle"  ]; then 
@@ -135,11 +139,11 @@ cd gekkoga
 npm install
 cd "/home/"$localuser"/gekko"
 git clone https://github.com/tommiehansen/gekko_tools.git
-cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/*.js" "/home/"$localuser"/gekko/strategies/"
-cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/*.toml" "/home/"$localuser"/gekko/config/strategies/"
+cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/"*.js "/home/"$localuser"/gekko/strategies/"
+cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/"*.toml "/home/"$localuser"/gekko/config/strategies/"
 git clone https://github.com/Gab0/gekko-extra-indicators.git
 cd "/home/"$localuser"/gekko/gekko-extra-indicators/indicators"
-cp "*.js" "/"$localuser"/gekko/strategies/indicators"
+cp *.js "/home/"$localuser"/gekko/strategies/indicators/"
 cd "/home/"$localuser"/gekko"
 sed -i 's/127.0.0.1/0.0.0.0/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
 sed -i 's/localhost/'${ipaddress}'/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
