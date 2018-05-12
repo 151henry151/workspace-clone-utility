@@ -139,11 +139,11 @@ cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/*.js" "/home/"$localuser"
 cp -r "/home/"$localuser"/gekko/gekko_tools/strategies/*.toml" "/home/"$localuser"/gekko/config/strategies/"
 git clone https://github.com/Gab0/gekko-extra-indicators.git
 cd "/home/"$localuser"/gekko/gekko-extra-indicators/indicators"
-cp "*.js /"$localuser"/gekko/strategies/indicators"
+cp "*.js" "/"$localuser"/gekko/strategies/indicators"
 cd "/home/"$localuser"/gekko"
 sed -i 's/127.0.0.1/0.0.0.0/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
 sed -i 's/localhost/'${ipaddress}'/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
-sed -i 's/headless:\ false/headless:\ true/g' "/home"$localuser"/gekko/web/vue/UIconfig.js"
+sed -i 's/headless:\ false/headless:\ true/g' "/home/"$localuser"/gekko/web/vue/UIconfig.js"
 echo
 printf "Gekko and GekkoGA installed and ready for use. Navigate to %s:3000 in your web browser for the UI." $ipaddress
 echo
